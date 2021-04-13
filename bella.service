@@ -1,0 +1,11 @@
+[Unit]
+Description=Archive the daily BELLA data to Google Drive
+Wants=bella.timer
+
+[Service]
+Type=oneshot
+User=sfd
+ExecStart=/usr/local/bin/bella.py
+
+[Install]
+WantedBy=multi-user.target

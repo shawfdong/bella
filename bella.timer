@@ -1,0 +1,10 @@
+[Unit]
+Description=Archive the daily BELLA data to Google Drive
+Requires=bella.service
+
+[Timer]
+Unit=bella.service
+OnCalendar=*-*-* 23:00:00
+
+[Install]
+WantedBy=timers.target
