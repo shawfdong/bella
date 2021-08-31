@@ -65,7 +65,7 @@ def date_to_dirs(date=datetime.date.today):
 
 if __name__ == '__main__':
     log = '/tmp/bella.log'
-    logging.basicConfig(filename=log, level=logging.INFO, 
+    logging.basicConfig(filename=log, filemode='w', level=logging.INFO, 
                         format='%(asctime)s - %(levelname)s - %(message)s')
     conf = [{'mount': '/bella/pw/', 
              'dirs': ['', 'p2/', 'PWlaserData/'],
@@ -101,7 +101,6 @@ Subject: [bella] daily archive log
 """
     with open(log) as f:
         message += f.read()
-        # print(message)
 
     try:
         smtp = smtplib.SMTP('localhost')
@@ -109,6 +108,4 @@ Subject: [bella] daily archive log
         print("Successfully sent email")
     except smtplib.SMTPException:
         print("Error: unable to send email")
-
-    os.remove(log)
 
