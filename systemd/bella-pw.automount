@@ -1,0 +1,8 @@
+[Unit]
+Description=Automount BELLA PW
+
+[Automount]
+Where=/bella/pw
+
+[Install]
+WantedBy=multi-user.target

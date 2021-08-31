@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount BELLA HTW
+
+[Mount]
+What=//131.243.169.248/vol1/data
+Where=/bella/htw
+Options=user,uid=sfd,gid=users,credentials=/root/.creds/bellahtw.txt
+Type=cifs
+
+[Install]
+WantedBy=multi-user.target

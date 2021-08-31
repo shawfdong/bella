@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount BELLA PW
+
+[Mount]
+What=//131.243.169.212/bdna1/data
+Where=/bella/pw
+Options=user,uid=sfd,gid=users,credentials=/root/.creds/bellapw.txt
+Type=cifs
+
+[Install]
+WantedBy=multi-user.target

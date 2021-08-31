@@ -1,0 +1,8 @@
+[Unit]
+Description=Automount BELLA HTW
+
+[Automount]
+Where=/bella/htw
+
+[Install]
+WantedBy=multi-user.target

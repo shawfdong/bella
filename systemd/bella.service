@@ -6,6 +6,3 @@ Wants=bella.timer
 Type=oneshot
 User=sfd
 ExecStart=/usr/local/bin/bella.py
-
-[Install]
-WantedBy=multi-user.target
