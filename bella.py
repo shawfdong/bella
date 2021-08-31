@@ -105,6 +105,7 @@ Subject: [bella] daily archive log
     try:
         smtp = smtplib.SMTP('localhost')
         smtp.sendmail(sender, receivers, message)
+        smtp.quit()
         print("Successfully sent email")
     except smtplib.SMTPException:
         print("Error: unable to send email")
