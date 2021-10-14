@@ -46,11 +46,11 @@ def archive_to_gdrive(mount, root_dir, base_dir, gdrive):
     logging.info("Check if the files in the source and destination match")
     sub = subprocess.run(['/usr/bin/rclone', 'check', '--size-only', zip_file, dest_path])
     if sub.returncode == 0:
-        logging.info("Files in the source and destination match do match!")
+        logging.info("Files in the source and destination do match!")
         # delete the temporary zip file
         os.remove(zip_file)
     else:
-        logging.error("Files in the source and destination match do not match!")
+        logging.error("Files in the source and destination do not match!")
 
 def date_to_dirs(date=datetime.date.today):
     """Convert a date to root_dir & base_dir"""
