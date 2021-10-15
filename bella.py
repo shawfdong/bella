@@ -49,8 +49,74 @@ def archive_to_gdrive(mount, root_dir, base_dir, gdrive):
         logging.info("Files in the source and destination do match!")
         # delete the temporary zip file
         os.remove(zip_file)
+        # send an email to the data owner
+        send_email(root_dir, base_dir)
     else:
         logging.error("Files in the source and destination do not match!")
+
+def send_email(root_dir, base_dir):
+    sender = 'sfd@lbl.gov'
+    base = root_dir.split('/')[0]
+
+    if base[:3] == 'Y20':
+        folder = 'bdna1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella PW Data'
+        email = 'MarleneTurner@lbl.gov'
+        first_name = 'Marlene'
+    elif base == 'p2':
+        folder = 'bdna1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella PW Data'
+        email = 'MarleneTurner@lbl.gov'
+        first_name = 'Marlene'
+    elif base == 'kHzLPA':
+        folder = 'vol1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella HTW Data'
+        email = 'Hao.Ding@lbl.gov'
+        first_name = 'Hao'
+    elif base == 'LaserUpstairs':
+        folder = 'vol1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella HTW Data'
+        email = 'LFanChiang@lbl.gov'
+        first_name = 'Liona'
+    elif base == 'Magnet Test Bench':
+        folder = 'vol1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella HTW Data'
+        email = 'SBarber@lbl.gov@lbl.gov'
+        first_name = 'Sam'
+    elif base == 'TestStand':
+        folder = 'vol1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella HTW Data'
+        email = 'jastackhouse@lbl.gov'
+        first_name = 'Joshua'
+    elif base == 'Thomson':
+        folder = 'vol1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella HTW Data'
+        email = 'TMOstermayr@lbl.gov'
+        first_name = 'Tobias'
+    elif base == 'Undulator':
+        folder = 'vol1/data/' + root_dir + '/' + base_dir
+        gdrive = 'Bella HTW Data'
+        email = 'SBarber@lbl.gov@lbl.gov'
+        first_name = 'Sam'
+    else:
+        return
+        
+    receivers = [email, 'sfd@lbl.gov']
+    message = f'''From: Shawfeng Dong <sfd@lbl.gov>
+To: {email}
+CC: sfd@lbl.gov
+Subject: [bella] backup log
+
+Dear {first_name},
+
+FYI. Your data in the folder "{folder}" on the Netapp file server have been backed up to the shared Google Drive "{gdrive}".
+
+Cheers,
+Shaw
+'''
+    smtp = smtplib.SMTP('localhost')
+    smtp.sendmail(sender, receivers, message)
+    smtp.quit()
 
 def date_to_dirs(date=datetime.date.today):
     """Convert a date to root_dir & base_dir"""
@@ -72,7 +138,7 @@ if __name__ == '__main__':
              'gdrive': 'bellapw:data'},
             {'mount': '/bella/htw/',
              'dirs': ['Undulator/', 'Thomson/', 'TestStand/', 
-                      'LaserUpstairs/', 'kHzLPA/'],
+                      'LaserUpstairs/', 'kHzLPA/', 'Magnet Test Bench/'],
              'gdrive': 'bellahtw:data'}]
 
     # get yesterday's date (everyday, we back up previous day's data) 
@@ -99,8 +165,10 @@ CC: sfd@lbl.gov
 Subject: [bella] daily archive log
 
 """
+
     with open(log) as f:
         message += f.read()
+        # print(message)
 
     try:
         smtp = smtplib.SMTP('localhost')
@@ -109,4 +177,3 @@ Subject: [bella] daily archive log
         print("Successfully sent email")
     except smtplib.SMTPException:
         print("Error: unable to send email")
-
