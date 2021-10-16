@@ -81,7 +81,7 @@ def send_email(root_dir, base_dir):
     elif base == 'Magnet Test Bench':
         folder = 'vol1/data/' + root_dir + '/' + base_dir
         gdrive = 'Bella HTW Data'
-        email = 'SBarber@lbl.gov@lbl.gov'
+        email = 'SBarber@lbl.gov'
         first_name = 'Sam'
     elif base == 'TestStand':
         folder = 'vol1/data/' + root_dir + '/' + base_dir
@@ -96,7 +96,7 @@ def send_email(root_dir, base_dir):
     elif base == 'Undulator':
         folder = 'vol1/data/' + root_dir + '/' + base_dir
         gdrive = 'Bella HTW Data'
-        email = 'SBarber@lbl.gov@lbl.gov'
+        email = 'SBarber@lbl.gov'
         first_name = 'Sam'
     else:
         return
